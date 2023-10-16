@@ -15,25 +15,39 @@ export class App extends Component {
   };
 
   componentDidMount() {
-    const savedContacts = localStorage.getItem('setContactst');
+    const savedContacts = localStorage.getItem('setContacts');
+    const savedFilter = localStorage.getItem('filter');
+
     if (savedContacts !== null) {
       const listContacts = JSON.parse(savedContacts);
       this.setState({ contacts: listContacts });
     }
+
+    if (savedFilter !== null) {
+      const newFilters = JSON.parse(savedFilter);
+      this.setState({ filter: newFilters });
+    }
   }
 
   componentDidUpdate(prevProps, prevState) {
-    console.log('prevState', prevState);
-    console.log('state', this.state);
     if (prevState.contacts !== this.state.contacts) {
-      console.log('WRITE');
-      localStorage.setItem('setContactst', JSON.stringify(this.state.contacts));
+      localStorage.setItem('setContacts', JSON.stringify(this.state.contacts));
+    }
+
+    if (prevState.filter !== this.state.filter) {
+      localStorage.setItem('filter', JSON.stringify(this.state.filter));
     }
   }
 
   changeFilter = newFilter => {
     this.setState({
       filter: newFilter,
+    });
+  };
+
+  resetFilter = clearFilter => {
+    this.setState({
+      filter: '',
     });
   };
 
@@ -84,7 +98,11 @@ export class App extends Component {
         <h1>Poneboock</h1>
         <ContactForm onAdd={this.addContact} />
         <h2>Contacts</h2>
-        <Filter filter={this.state.filter} onChangeFilter={this.changeFilter} />
+        <Filter
+          filter={this.state.filter}
+          onChangeFilter={this.changeFilter}
+          onResetFilter={this.resetFilter}
+        />
         <ContactList
           contacts={contactsFilter}
           onDelete={this.deleteItemContact}

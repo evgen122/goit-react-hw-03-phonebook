@@ -1,4 +1,4 @@
-export const Filter = ({ filter, onChangeFilter }) => {
+export const Filter = ({ filter, onChangeFilter, onResetFilter }) => {
   return (
     <div>
       <p>Find contacts by name</p>
@@ -7,6 +7,7 @@ export const Filter = ({ filter, onChangeFilter }) => {
         value={filter}
         onChange={evt => onChangeFilter(evt.target.value)}
       />
+      <button onClick={onResetFilter}>Reset</button>
     </div>
   );
 };
