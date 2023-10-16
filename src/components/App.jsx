@@ -19,7 +19,14 @@ export class App extends Component {
     number: '',
   };
 
-  componentDidUpdate() {}
+  componentDidUpdate(prevProps, prevState) {
+    console.log('prevState', prevState);
+    console.log('state', this.state);
+    if (prevState.contacts !== this.state.contacts) {
+      console.log('WRITE');
+      localStorage.setItem('setContactst', JSON.stringify(this.state.contacts));
+    }
+  }
 
   changeFilter = newFilter => {
     this.setState({
