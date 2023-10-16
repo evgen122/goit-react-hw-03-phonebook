@@ -19,6 +19,11 @@ export class App extends Component {
     number: '',
   };
 
+  componentDidMount() {
+    const savedContacts = localStorage.getItem('setContactst');
+    console.log(savedContacts);
+  }
+
   componentDidUpdate(prevProps, prevState) {
     console.log('prevState', prevState);
     console.log('state', this.state);
